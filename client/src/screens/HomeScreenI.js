@@ -3,10 +3,13 @@ import axios from 'axios';
 
 function HomeScreenI() {
   const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState();
+  const [error, serError] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await axios.get('api/rooms/getallrooms');
         setRooms(response.data); // Update state with response data
       } catch (error) {
