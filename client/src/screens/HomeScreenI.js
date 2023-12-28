@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Room from "../components/Room";
 
 function HomeScreenI() {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState();
-  const [error, serError] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('api/rooms/getallrooms');
-        setRooms(response.data); // Update state with response data
+        const data = (await axios.get("api/rooms/getallrooms")).data;
+        setRooms(data); // Update state with response data
+        setLoading(false);
       } catch (error) {
+        setError(true);
         console.log("Error in fetching details from backend", error);
+        setLoading(false);
       }
     };
 
@@ -21,9 +25,21 @@ function HomeScreenI() {
   }, []);
 
   return (
-    <div>
-      <h1>Home Screen Luvuuuu</h1>
-      <h1>There are {rooms.length} rooms</h1>
+    <div className="container">
+      <div className="row justify-content-center mt-5">
+        {loading ? (
+          <h1>loading</h1>
+        ) : error ? (
+          <h1>Error in homeScreen</h1>
+        ) : (
+          rooms.map((room) => {
+            return <div className="col-md-9 mt-2">
+              <Room room={room}/>
+            </div>
+          })
+        )}
+        ;
+      </div>
     </div>
   );
 }
