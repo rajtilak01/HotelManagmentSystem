@@ -1,9 +1,10 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-// import HomeScreen from './screens/homeScreen'
 import HomeScreenI from './screens/HomeScreenI'
 import BookingScreen from './screens/BookingScreen';
+import LoginScreens from './screens/LoginScreens';
+import RegisterScreen from './screens/RegisterScreen';
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
       <Routes>
         <Route path="/home" exact Component={HomeScreenI}/>
         <Route path="/book/:roomid/" exact Component={BookingScreen}/>
+        <Route path="/register" exact Component={RegisterScreen}/>
+        <Route path="/login" exact Component={LoginScreens}/>
         
       </Routes>
       </BrowserRouter>
