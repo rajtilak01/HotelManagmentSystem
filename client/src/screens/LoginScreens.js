@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy } from "react";
 import axios from "axios";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 function LoginScreens() {
-//   const [name, setName] = useState("");
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
-//   const [cpassword, setcpassword] = useState("");
 
+  const [loading, setloading] = useState('');
+  const [error, seterror] = useState('');
   async function Login(){
         const user={
             email,
@@ -14,15 +16,23 @@ function LoginScreens() {
         }
         console.log(user);
         try {
-          const result = (await axios.post('/api/users/login',user)).data;
+        setloading(true);
+        const result = (await axios.post('/api/users/login',user)).data;
+        setloading(false);
+        localStorage.setItem("currUser",JSON.stringify(result));
+        window.location.href='/home';
       } catch (error) {
+        setloading(false);
+        seterror(true); 
         console.log(error);
       }
   }
   return (
     <div>
+      {loading && (<Loading/>)}
       <div className="row justify-content-center mt-5">
         <div className="col-md-5 mt-5">
+          {error && (<Error message='Invalid Credentials'/>)}
           <div className="bs">
             <h2>Login</h2>
             <input
