@@ -20,7 +20,7 @@ router.post("/getroombyid", async (req, res) => {
   } catch (err) {
     res
       .status(400)
-      .json("Error in fetcing room details by id", { messsage: error });
+      .json("Error in fetcing room details by id");
   }
 });
 
