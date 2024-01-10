@@ -13,23 +13,23 @@ const bookingSchema = mongoose.Schema({
         type : String,
         required : true,
     },
-    fromdate : {
+    firstdate : {
         type : String,
         required : true,
     },
-    todate : {
+    lastdate : {
         type : String,
         required : true,
     },
-    totalamount : {
+    totalAmount : {
         type : Number,
         required : true,
     },
-    totaldays : {
+    totalDays : {
         type : Number,
         required : true,
     },
-    transactionid : {
+    transactionId : {
         type : String,
         required : true,
     },

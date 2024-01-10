@@ -18,7 +18,7 @@ const roomschema = mongoose.Schema({
         required:true
     },
     imageurls: [],
-    currentBookings: [],
+    currentbookings: [],
     type: {
         type: String, // "private" or "public"
         required: true
