@@ -23,23 +23,19 @@ router.post("/bookroom", async (req, res) => {
     const booking = await newbooking.save();
 
     await roomModel.updateOne(
-        { _id: room._id },
-        {
-          $addToSet: {
-            currentbookings: {
-              $each: [
-                {
-                  bookingid: booking._id,
-                  firstdate: moment(firstdate).format("DD-MM-YYYY"),
-                  lastdate: moment(lastdate).format("DD-MM-YYYY"),
-                  user_id,
-                  status: booking.status,
-                },
-              ],
-            },
+      { _id: room._id },
+      {
+        $push: {
+          currentbookings: {
+            bookingid: booking._id,
+            firstdate: moment(firstdate).format("DD-MM-YYYY"),
+            lastdate: moment(lastdate).format("DD-MM-YYYY"),
+            user_id,
+            status: booking.status,
           },
-        }
-      );
+        },
+      }
+    );
     res.send("Room booked successfully");
   } catch (error) {
     return res.status(400).json({ error });

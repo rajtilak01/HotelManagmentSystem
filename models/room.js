@@ -9,7 +9,7 @@ const roomschema = mongoose.Schema({
         type : Number ,
         required : true
     },
-    phoneMumber:{
+    phonenumber:{
        type: Number,
        unique :true
     },
