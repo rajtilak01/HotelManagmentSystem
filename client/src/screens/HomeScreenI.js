@@ -36,110 +36,110 @@ function HomeScreenI() {
     fetchData(); // Call the inner asynchronous function
   }, []);
 
-  // function filterByDate(dates) {
-  //   // var dateRange = RangePicker.getMoment("2018-9-3
-  //   // console.log(dates[0].format('DD-MM-YYYY'));
-  //   // console.log(dates[1].format('DD-MM-YYYY'));
-  //   setfromDate(dates[0].format("DD-MM-YYYY"));
-  //   setToDate(dates[1].format("DD-MM-YYYY"));
-
-  //   var temprooms = [];
-  //   var availabililty = false;
-  //   for (const room of duplicateroom) {
-  //     // if(room.currentbookings.length == 0){
-  //     //   temprooms.push(room);
-  //     // }
-  //     if (room.currentbookings.length > 0) {
-  //       for (const booking of room.currentbookings) {
-  //         if (
-  //           !moment(
-  //             moment(dates[0].format("DD-MM-YYYY")).isBetween(
-  //               booking.firstdate,
-  //               booking.lastdate
-  //             )
-  //           ) &&
-  //           !moment(
-  //             moment(dates[1].format("DD-MM-YYYY")).isBetween(
-  //               booking.firstdate,
-  //               booking.lastdate
-  //             )
-  //           )
-  //         ) {
-  //           if (
-  //             moment(dates[0]).format("DD-MM-YYYY") !== booking.firstdate &&
-  //             moment(dates[0]).format("DD-MM-YYYY") !== booking.lastdate &&
-  //             moment(dates[1]).format("DD-MM-YYYY") !== booking.firstdate &&
-  //             moment(dates[1]).format("DD-MM-YYYY") !== booking.lastdate
-  //           ) {
-  //             availabililty = true;
-  //           }
-  //         }
-  //       }
-  //     }
-  //     if (availabililty || room.currentbookings.length == 0) {
-  //       temprooms.push(room);
-  //     }
-  //     // setRooms(temprooms);
-  //   }
-  // }
-
   function filterByDate(dates) {
     // var dateRange = RangePicker.getMoment("2018-9-3
     // console.log(dates[0].format('DD-MM-YYYY'));
     // console.log(dates[1].format('DD-MM-YYYY'));
-  
-    const fromDateStr = dates[0]?.format("DD-MM-YYYY");
-    const toDateStr = dates[1]?.format("DD-MM-YYYY");
-  
-    if (!fromDateStr || !toDateStr) {
-      // Dates are not valid, handle the error or return early
-      console.error("Invalid dates");
-      return;
-    }
-  
-    setfromDate(fromDateStr);
-    setToDate(toDateStr);
-  
+    setfromDate(dates[0].format("DD-MM-YYYY"));
+    setToDate(dates[1].format("DD-MM-YYYY"));
+
     var temprooms = [];
+    var availabililty = false;
     for (const room of duplicateroom) {
-      var availabililty = false;
-  
+      // if(room.currentbookings.length == 0){
+      //   temprooms.push(room);
+      // }
       if (room.currentbookings.length > 0) {
         for (const booking of room.currentbookings) {
           if (
             !moment(
-              moment(fromDateStr).isBetween(
+              moment(dates[0].format("DD-MM-YYYY")).isBetween(
                 booking.firstdate,
                 booking.lastdate
               )
             ) &&
             !moment(
-              moment(toDateStr).isBetween(
+              moment(dates[1].format("DD-MM-YYYY")).isBetween(
                 booking.firstdate,
                 booking.lastdate
               )
             )
           ) {
             if (
-              moment(fromDateStr).format("DD-MM-YYYY") !== booking.firstdate &&
-              moment(fromDateStr).format("DD-MM-YYYY") !== booking.lastdate &&
-              moment(toDateStr).format("DD-MM-YYYY") !== booking.firstdate &&
-              moment(toDateStr).format("DD-MM-YYYY") !== booking.lastdate
+              moment(dates[0]).format("DD-MM-YYYY") !== booking.firstdate &&
+              moment(dates[0]).format("DD-MM-YYYY") !== booking.lastdate &&
+              moment(dates[1]).format("DD-MM-YYYY") !== booking.firstdate &&
+              moment(dates[1]).format("DD-MM-YYYY") !== booking.lastdate
             ) {
               availabililty = true;
             }
           }
         }
       }
-  
-      if (availabililty || room.currentbookings.length === 0) {
+      if (availabililty || room.currentbookings.length == 0) {
         temprooms.push(room);
       }
+      // setRooms(temprooms);
     }
-  
-    // Update state with filtered rooms
-    // setRooms(temprooms);
   }
+
+  // function filterByDate(dates) {
+  //   // var dateRange = RangePicker.getMoment("2018-9-3
+  //   // console.log(dates[0].format('DD-MM-YYYY'));
+  //   // console.log(dates[1].format('DD-MM-YYYY'));
+  
+  //   const fromDateStr = dates[0]?.format("DD-MM-YYYY");
+  //   const toDateStr = dates[1]?.format("DD-MM-YYYY");
+  
+  //   if (!fromDateStr || !toDateStr) {
+  //     // Dates are not valid, handle the error or return early
+  //     console.error("Invalid dates");
+  //     return;
+  //   }
+  
+  //   setfromDate(fromDateStr);
+  //   setToDate(toDateStr);
+  
+  //   var temprooms = [];
+  //   for (const room of duplicateroom) {
+  //     var availabililty = false;
+  
+  //     if (room.currentbookings.length > 0) {
+  //       for (const booking of room.currentbookings) {
+  //         if (
+  //           !moment(
+  //             moment(fromDateStr).isBetween(
+  //               booking.firstdate,
+  //               booking.lastdate
+  //             )
+  //           ) &&
+  //           !moment(
+  //             moment(toDateStr).isBetween(
+  //               booking.firstdate,
+  //               booking.lastdate
+  //             )
+  //           )
+  //         ) {
+  //           if (
+  //             moment(fromDateStr).format("DD-MM-YYYY") !== booking.firstdate &&
+  //             moment(fromDateStr).format("DD-MM-YYYY") !== booking.lastdate &&
+  //             moment(toDateStr).format("DD-MM-YYYY") !== booking.firstdate &&
+  //             moment(toDateStr).format("DD-MM-YYYY") !== booking.lastdate
+  //           ) {
+  //             availabililty = true;
+  //           }
+  //         }
+  //       }
+  //     }
+  
+  //     if (availabililty || room.currentbookings.length === 0) {
+  //       temprooms.push(room);
+  //     }
+  //   }
+  
+  //   // Update state with filtered rooms
+  //   // setRooms(temprooms);
+  // }
   
   return (
     <div className="container">
