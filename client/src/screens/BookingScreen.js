@@ -42,13 +42,13 @@ function BookingScreen() {
   async function onToken(token) {
     console.log(token);
     const bookingDetails = {
-      token,
       room,
       user_id: JSON.parse(localStorage.getItem("currUser")).id,
       firstdate,
       lastdate,
       totalAmount,
       totalDays,
+      token
     };
 
     try {
