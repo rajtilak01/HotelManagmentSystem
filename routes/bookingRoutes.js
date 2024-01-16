@@ -3,6 +3,8 @@ const router = express.Router();
 const Booking = require("../models/booking");
 const roomModel = require("../models/room");
 const moment = require("moment");
+const uuid = require("uuid");
+const stripe = require("stripe");
 
 router.post("/bookroom", async (req, res) => {
   const { room, user_id, firstdate, lastdate, totalAmount, totalDays } =
