@@ -5,6 +5,7 @@ import Loading from "../components/Loading";
 import Error from "../components/Error";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
+import Swal from 'sweetalert2';
 
 // require("dotenv").config();
 
@@ -52,8 +53,17 @@ function BookingScreen() {
     };
 
     try {
+      setLoading(true);
       const result = await axios.post("/api/bookings/bookroom", bookingDetails);
-    } catch (error) {}
+      setLoading(false);
+      Swal.fire('Congratulations','Your Room Booked Successfully','success').then(result=>{
+        window.location.href='/bookings'
+      });
+    } catch (error) {
+      setLoading(false);
+      Swal.fire('Ohoh','Something went wrong','error');
+
+    }
   }
   return (
     <div className="m-5">
