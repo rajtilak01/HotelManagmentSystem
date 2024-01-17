@@ -147,6 +147,16 @@ function HomeScreenI() {
         <div className="col-md-3">
           <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
         </div>
+
+        <div className="col-md-5">
+            <input type="text" className="form-control" placeholder="Search Rooms"/>
+        </div>
+
+        <select>
+          <option value='all'>All</option>
+          <option value='Delux'>Delux</option>
+          <option value='Non-Delux'>Non-Delux</option>
+        </select>
       </div>
       <div className="row justify-content-center mt-5">
         {loading ? (
