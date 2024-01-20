@@ -17,6 +17,8 @@ function HomeScreenI() {
   const [fromDate, setfromDate] = useState();
   const [toDate, setToDate] = useState();
   const [duplicateroom, setduplicateroom] = useState();
+  const [searchKey, setsearchKey] = useState('')
+  const [type, setType] = useState('all')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -141,27 +143,49 @@ function HomeScreenI() {
   //   // setRooms(temprooms);
   // }
   
+  function filterBySearch(){
+    const temprooms = duplicateroom.filter(room=>room.name.toLowerCase().includes(searchKey.toLowerCase()));
+    
+    setRooms(temprooms);
+  }
+  
+  function filterByType(e){
+    
+    setType(e);
+    if(e != 'all'){
+      const temprooms = duplicateroom.filter(room=>room.type.toLowerCase() == e.toLowerCase());
+      setRooms(temprooms);
+    }
+    else {
+      setRooms(duplicateroom);
+    }
+    
+  }
   return (
     <div className="container">
-      <div className="row mt-5">
+      <div className="row mt-5 bs">
         <div className="col-md-3">
           <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
         </div>
 
         <div className="col-md-5">
-            <input type="text" className="form-control" placeholder="Search Rooms"/>
+            <input type="text" className="form-control" placeholder="Search Rooms"
+            value={searchKey} onChange={(e) => {setsearchKey(e.target.value)}} onKeyUp={filterBySearch}
+            />
         </div>
 
-        <select>
-          <option value='all'>All</option>
-          <option value='Delux'>Delux</option>
-          <option value='Non-Delux'>Non-Delux</option>
-        </select>
+        <div className="col-md-3">
+          <select className="form-control" value={type} onChange={(e) => {filterByType(e.target.value)}}>
+            <option value='all'>All</option>
+            <option value='delux'>Delux</option>
+            <option value='non-delux'>Non-Delux</option>
+          </select>
+        </div>
       </div>
       <div className="row justify-content-center mt-5">
         {loading ? (
           <Loading />
-        ) : rooms.length >= 1 ? (
+        ) : (
           rooms.map((room) => {
             return (
               <div className="col-md-9 mt-2">
@@ -169,8 +193,6 @@ function HomeScreenI() {
               </div>
             );
           })
-        ) : (
-          <Error />
         )}
       </div>
     </div>
